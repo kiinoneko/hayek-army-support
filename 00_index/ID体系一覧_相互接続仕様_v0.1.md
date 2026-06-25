@@ -10,7 +10,7 @@ IDが増えても台帳間の接続を失わず、後から「どの案件が、
 
 ## 概要
 
-本仕様書は、各IDを単なる番号ではなく、後方支援軍の調査・判断・請求・引渡・変更管理をつなぐ管理索引として扱う。読み手は、案件の中心、根拠資料、未確認事項、注意事項、停止事項、関与者、発言、政策、情報公開請求、ユーザー判断、引渡、事故、PR変更を日本語の運用文脈で確認できる。
+本仕様書は、各IDを単なる番号ではなく、後方支援軍の調査・判断・請求・引渡・変更管理をつなぐ管理索引として扱う。読み手は、案件の中心、根拠資料、未確認事項、注意事項、停止事項、関与者、発言、政策、情報公開請求、ユーザー判断、引渡、事故、プルリクエスト変更を日本語の運用文脈で確認できる。
 
 ## 必須事項
 
@@ -25,7 +25,7 @@ IDが増えても台帳間の接続を失わず、後から「どの案件が、
 
 本文は日本語を中心に記述する。ただし、`case_id`、`source_id`等のID名、`SRC_`、`GAP_`等の接頭辞、`USER_DECISION`、`case_log`、`archive`等の運用上の固定表記は、台帳間の照合性を保つため原表記を維持する。
 
-ID体系一覧とは、後方支援軍の各台帳・仕様書・調査メモ・判断記録・PR変更管理で使用するIDの役割、命名規則、接続先、接続理由、禁止事項を統一的に整理した管理仕様である。
+ID体系一覧とは、後方支援軍の各台帳・仕様書・調査メモ・判断記録・プルリクエスト変更管理で使用するIDの役割、命名規則、接続先、接続理由、禁止事項を統一的に整理した管理仕様である。
 
 各IDは単独で意味を完結させるものではなく、案件、根拠資料、未確認事項、ユーザー判断、請求、引渡、事故、変更管理を相互接続するための索引として使用する。
 
@@ -37,7 +37,7 @@ ID体系一覧とは、後方支援軍の各台帳・仕様書・調査メモ・
 - `gap_id`は未確認事項を示すIDであり、根拠の代替ではない。
 - `warning_id`は注意事項を示すIDであり、停止ではない。
 - `stop_id`は停止事項を示すIDであり、自動進行してはならない。
-- `decision_id`はユーザー判断を記録するIDであり、AI判断で代替しない。
+- `decision_id`はユーザー判断を記録するIDであり、人工知能判断で代替しない。
 - `actor_id`、`quote_id`、`policy_id`は公的責任線を追跡するためのIDであり、個人攻撃や断定の根拠にしない。
 - IDは必ず`case_id`又は`policy_id`等と接続し、孤立させない。
 
@@ -46,18 +46,18 @@ ID体系一覧とは、後方支援軍の各台帳・仕様書・調査メモ・
 | ID | 名称 | 役割 | 主要接続先 |
 |---|---|---|---|
 | `case_id` | 案件ID | 案件全体を管理する中心ID | `source_id`, `gap_id`, `decision_id`, `handoff_id` |
-| `source_id` | 根拠資料ID | 資料、文書、URL、PDF、議事録等を管理 | `case_id`, `quote_id`, `policy_id`, `request_id` |
+| `source_id` | 根拠資料ID | 資料、文書、ウェブページ、PDF、議事録等を管理 | `case_id`, `quote_id`, `policy_id`, `request_id` |
 | `gap_id` | 情報ギャップID | 未確認事項、不足資料、本文未確認等を管理 | `case_id`, `request_id`, `decision_id` |
 | `warning_id` | 警告ID | 注意事項、比較注意、確認不足を管理 | `case_id`, `source_id`, `policy_id` |
 | `stop_id` | 停止ID | 自動進行禁止の理由を管理 | `case_id`, `decision_id` |
 | `actor_id` | 政治行政アクターID | 関与者、発言者、同意人事、職責を管理 | `quote_id`, `policy_id`, `case_id` |
-| `quote_id` | 発言・言質ID | 発言、答弁、公約、SNS投稿等を管理 | `actor_id`, `source_id`, `policy_id` |
+| `quote_id` | 発言・言質ID | 発言、答弁、公約、交流サイト投稿等を管理 | `actor_id`, `source_id`, `policy_id` |
 | `policy_id` | 政策・事業ID | 政策、事業、制度、契約、補助金等を管理 | `source_id`, `actor_id`, `quote_id`, `request_id` |
 | `request_id` | 情報公開請求ID | 請求前調査、文案、提出、開示結果を管理 | `gap_id`, `decision_id`, `source_id` |
 | `decision_id` | 判断ID | `USER_DECISION`を管理 | `case_id`, `request_id`, `handoff_id` |
 | `handoff_id` | 引渡ID | 中核軍、法務官、前線部隊等への引渡を管理 | `case_id`, `decision_id` |
 | `incident_id` | インシデントID | 誤公開、誤断定、個人情報混入等を管理 | `case_id`, `change_id`, `decision_id` |
-| `change_id` | 変更管理ID | PR、マージ、差し戻し、仕様更新を管理 | PR番号, `incident_id`, `decision_id` |
+| `change_id` | 変更管理ID | プルリクエスト、マージ、差し戻し、仕様更新を管理 | プルリクエスト番号, `incident_id`, `decision_id` |
 
 ## 4. 各IDの役割
 
@@ -67,7 +67,7 @@ ID体系一覧とは、後方支援軍の各台帳・仕様書・調査メモ・
 
 ### source_id
 
-根拠資料を管理するIDである。資料、文書、URL、PDF、議事録、開示資料、公式ページ等を識別し、正式事実、正式数値、正式発言、正式政策整理の根拠を支える。
+根拠資料を管理するIDである。資料、文書、ウェブページ、PDF、議事録、開示資料、公式ページ等を識別し、正式事実、正式数値、正式発言、正式政策整理の根拠を支える。
 
 ### gap_id
 
@@ -87,7 +87,7 @@ ID体系一覧とは、後方支援軍の各台帳・仕様書・調査メモ・
 
 ### quote_id
 
-発言、答弁、公約、SNS投稿、会見発言、議事録上の発言等を管理するIDである。正式な`quote_id`化には`source_id`との接続を必要とする。
+発言、答弁、公約、交流サイト投稿、会見発言、議事録上の発言等を管理するIDである。正式な`quote_id`化には`source_id`との接続を必要とする。
 
 ### policy_id
 
@@ -99,7 +99,7 @@ ID体系一覧とは、後方支援軍の各台帳・仕様書・調査メモ・
 
 ### decision_id
 
-`USER_DECISION`を管理するIDである。情報公開請求、引渡、外部発信、GitHub公開、archive変更等、ユーザー判断が必要な事項をAI判断で代替しないために使用する。
+`USER_DECISION`を管理するIDである。情報公開請求、引渡、外部発信、リポジトリ公開、archive変更等、ユーザー判断が必要な事項を人工知能判断で代替しないために使用する。
 
 ### handoff_id
 
@@ -111,7 +111,7 @@ ID体系一覧とは、後方支援軍の各台帳・仕様書・調査メモ・
 
 ### change_id
 
-PR、マージ、差し戻し、仕様更新、台帳変更、運用変更等を管理するIDである。重要な変更はPR番号、`decision_id`、必要に応じて`incident_id`と接続する。
+プルリクエスト、マージ、差し戻し、仕様更新、台帳変更、運用変更等を管理するIDである。重要な変更はプルリクエスト番号、`decision_id`、必要に応じて`incident_id`と接続する。
 
 ## 5. ID命名規則
 
@@ -151,7 +151,7 @@ PR、マージ、差し戻し、仕様更新、台帳変更、運用変更等を
 - `quote_id`は`actor_id`と`source_id`に接続する。
 - `policy_id`は`source_id`、`actor_id`、`quote_id`、`request_id`、`case_id`に接続する。
 - `incident_id`は`case_id`、`change_id`、`decision_id`に接続する。
-- `change_id`はPR番号、`decision_id`、`incident_id`と接続する。
+- `change_id`はプルリクエスト番号、`decision_id`、`incident_id`と接続する。
 
 ### 接続例
 
@@ -178,15 +178,15 @@ PR、マージ、差し戻し、仕様更新、台帳変更、運用変更等を
 | `policy_id` | `POLICY_REFORM_001` |
 | `warning_id` | `WARN_CONTEXT` |
 
-#### 例3：GitHub PR変更管理
+#### 例3：リポジトリ上のプルリクエスト変更管理
 
 | 項目 | 内容 |
 |---|---|
 | `change_id` | `CHG_POLICY_001` |
-| PR番号 | #27 |
+| プルリクエスト番号 | #27 |
 | 対象ファイル | `00_index/policy_id政策事業台帳仕様_v0.1.md` |
 | `decision_id` | `DEC_GITHUB_001` |
-| 状態 | squash merge済み |
+| 状態 | まとめてマージ済み |
 
 ## 7. 中心IDと補助ID
 
@@ -203,7 +203,7 @@ PR、マージ、差し戻し、仕様更新、台帳変更、運用変更等を
 | 判断ID | `decision_id` | ユーザー判断 |
 | 引渡ID | `handoff_id` | 部隊間引渡 |
 | 事故ID | `incident_id` | インシデント |
-| 変更ID | `change_id` | PR・仕様変更 |
+| 変更ID | `change_id` | プルリクエスト・仕様変更 |
 
 ## 8. source_idとの接続原則
 
@@ -224,9 +224,9 @@ PR、マージ、差し戻し、仕様更新、台帳変更、運用変更等を
 
 ## 10. USER_DECISIONとの接続原則
 
-- 情報公開請求、法務官引渡、中核軍引渡、前線部隊引渡、外部発信、政策評価断定、GitHub公開、archive変更は`decision_id`で管理する。
+- 情報公開請求、法務官引渡、中核軍引渡、前線部隊引渡、外部発信、政策評価断定、リポジトリ公開、archive変更は`decision_id`で管理する。
 - `decision_id`なしに`USER_DECISION`事項を進めない。
-- AI判断で`USER_DECISION`を代替しない。
+- 人工知能判断で`USER_DECISION`を代替しない。
 - `decision_id`は`case_id`と接続する。
 
 ## 11. ダッシュボードとの関係
@@ -287,6 +287,6 @@ PR、マージ、差し戻し、仕様更新、台帳変更、運用変更等を
 - `policy_id`だけで政策評価断定しない。
 - `request_id`なしに情報公開請求を管理しない。
 - `incident_id`なしにインシデントを処理済みにしない。
-- `change_id`なしに重要なPR変更を管理しない。
-- PDF原本、個人情報、黒塗り前資料をGitHubに追加しない。
+- `change_id`なしに重要なプルリクエスト変更を管理しない。
+- PDF原本、個人情報、黒塗り前資料をリポジトリに追加しない。
 - archive配下を変更しない。
