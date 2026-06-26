@@ -265,4 +265,4 @@ case_id:
 - APIキー、パスワード、トークンを追加しない。
 - mainへ直接コミットしない。
 
-PRタイトル: `Add assembly newsletter summary reconciliation runbook v0.1`
+PRタイトル: `Fix assembly newsletter summary reconciliation runbook footer v0.1`
